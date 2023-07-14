@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Insertar Datos</title>
+</head>
+<body>
+    <h1>Insertar Datos</h1>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        {{ form_persona.as_p }}
+        {{ form_auto.as_p }}
+        {{ form_direccion.as_p }}
+        
+        <button type="submit">Guardar</button>
+    </form>
+</body>
+</html>

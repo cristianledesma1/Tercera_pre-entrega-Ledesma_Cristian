@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Listar Personas</title>
+</head>
+<body>
+    <h1>Listar Personas</h1>
+
+    <form method="GET">
+        <input type="text" name="q" placeholder="Buscar por nombre" value="{{ query }}">
+        <button type="submit">Buscar</button>
+    </form>
+
+    {% if query %}
+    <p>Resultados de búsqueda para: <strong>{{ query }}</strong></p>
+    {% endif %}
+
+    {% for persona in personas %}
+    <h2>{{ persona.nombre }}</h2>
+    <p>Apellido: {{ persona.apellido }}</p>
+    <p>Edad: {{ persona.edad }}</p>
+    <p><strong>Autos:</strong></p>
+    <ul>
+        {% for auto in persona.autos.all %}
+        <li>{{ auto.marca }} - {{ auto.modelo }}</li>
+        {% empty %}
+        <li>No hay autos registrados para esta persona.</li>
+        {% endfor %}
+    </ul>
+    <p><strong>Direcciones:</strong></p>
+    <ul>
+        {% for direccion in persona.direcciones.all %}
+        <li>{{ direccion.calle }} - {{ direccion.localidad }}</li>
+        {% empty %}
+        <li>No hay direcciones registradas para esta persona.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'borrar_datos' persona.id %}">Borrar</a>
+    {% empty %}
+    <p>No hay personas registradas.</p>
+    {% endfor %}
+</body>
+</html>
